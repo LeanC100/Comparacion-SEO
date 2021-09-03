@@ -9,25 +9,10 @@
 <body>
 
 
-        <form method="POST"  >
-            {% csrf_token %}
+        {% include "card/site1.html" %}
 
-            <input type="text" name="url" value="{{ my_url }}" />
-            <button type="submit" class="">mostrar!</button>
+        {% include "card/site2.html" %}
 
-        </form>
-        {% if value  %}
-            <span> {{ my_url }}</span>
-            <p>Ingrese la url de un sitio</p>
-            <p>Speed Index: 0 s</p>
-            <p>Time to Interactive: 0 s</p>
-            <p>1</p>
-        {% else %}
-            <span> {{ my_url }}</span>
 
-            <p>Speed Index: {{ speed_index.displayValue }}</p>
-            <p>Time to Interactive: {{ interactive.displayValue }}</p>
-            <p>2</p>
-        {% endif%}
     </body>
 </html>
