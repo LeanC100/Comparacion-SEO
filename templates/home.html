@@ -7,11 +7,37 @@
     <title>SEO</title>
 </head>
 <body>
+        <h1> Comparacion SEO de sitios</h1>
+        <p>La tarda 10 seg aproximadamente</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div>
+        <input type="text" name="url1" value="{{ date1.my_url }}" />
+        <span> {{ date1.my_url }}</span>
+        
+        <p>Speed Index: {{ date1.speed_index.displayValue }}</p>
+        <p>Time to Interactive: {{ date1.interactive.displayValue }}</p>
+        <p>2</p>
+    </div>
 
 
-        {% include "card/site1.html" %}
+    <div>
+        <input type="text" name="url2" value="{{ date2.my_url }}" />
+        <span> {{ date2.my_url }}</span>
+        
+        <p>Speed Index: {{ date2.speed_index.displayValue }}</p>
+        <p>Time to Interactive: {{ date2.interactive.displayValue }}</p>
+        <p>2</p>
+    
+    </div>
 
-        {% include "card/site2.html" %}
+    <button type="submit" class="">mostrar!</button>
+
+</form>
+
+        
 
 
     </body>

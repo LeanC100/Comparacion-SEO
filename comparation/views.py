@@ -8,18 +8,20 @@ import requests
 
 def home(request):
 
-    my_url1 = request.POST.get("url1")
-    my_url2 = request.POST.get("url2")
+    if request.method == "POST":
+      if request.POST.get('url1'):
+        my_url1 = request.POST.get("url1")
+        date1 = date_site(my_url1)
+        my_url2 = request.POST.get("url2")
+        date2 = date_site(my_url2)
+        context = {
+            "date1": date1,
+            "date2": date2,
+        }
+        return render(request, 'home.html', context)
 
-    date1 = date_site(my_url1)
-    date2 = date_site(my_url2)
+    return render(request, 'home.html')
 
-
-    context={
-      "date1":date1,
-      "date2": date2
-    }
-    return render(request, 'home.html', context)
     #response = requests.get(
       #  '
      #   ).json()
@@ -38,13 +40,15 @@ def date_site(value):
 #    url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={my_url}&key={APIKey}"
     if my_url is None:
       url_status = True
+      my_url = None
       context = {
           "url_status": url_status,
           "my_url": my_url,
       }
     else:
+
       url_status = False
-      url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://google.com&key={APIKey}"
+      url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={my_url}&key={APIKey}"
       # API request
       result = urllib.request.urlopen(url.format(url)).read().decode('UTF-8')
       result_json = json.loads(result)
