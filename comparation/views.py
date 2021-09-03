@@ -2,7 +2,7 @@ from django.shortcuts import render
 import json
 import urllib
 import requests
-
+from .models import Site
 
 # Create your views here.
 
@@ -10,10 +10,26 @@ def home(request):
 
     if request.method == "POST":
       if request.POST.get('url1'):
+        # sitio 1
         my_url1 = request.POST.get("url1")
         date1 = date_site(my_url1)
+        new_site = Site(
+                        url=my_url1, 
+            speed_index=date1["speed_index"]["displayValue"],
+            time_to_interactive=date1["interactive"]["displayValue"]
+        )
+        new_site.save()
+
+        # sitio 2
         my_url2 = request.POST.get("url2")
         date2 = date_site(my_url2)
+        new_site = Site(
+            url=my_url1,
+            speed_index=date2["speed_index"]["displayValue"],
+            time_to_interactive=date2["interactive"]["displayValue"]
+        )
+        new_site.save()
+
         context = {
             "date1": date1,
             "date2": date2,
@@ -22,22 +38,12 @@ def home(request):
 
     return render(request, 'home.html')
 
-    #response = requests.get(
-      #  '
-     #   ).json()
-
-   # return render(request, 'home.html',  {'response': response})
-
-
 def date_site(value):
-    #my_url = request.POST.get("url")
-    #my_device = request.POST.get("device")
+
     APIKey = "AIzaSyALIsdCRDWuduGIy071_x5lOFsVgyq3WaE"
     my_url = value
     url_status = True
-
-# https://developers.google.com
-#    url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={my_url}&key={APIKey}"
+    
     if my_url is None:
       url_status = True
       my_url = None
@@ -56,8 +62,9 @@ def date_site(value):
       context = {
           "my_url": my_url,
           "url_status": url_status,
-          "interactive": result_json["lighthouseResult"]["audits"]["interactive"],
-          "speed_index": result_json["lighthouseResult"]["audits"]["speed-index"]
+          "speed_index": result_json["lighthouseResult"]["audits"]["speed-index"],
+          "interactive": result_json["lighthouseResult"]["audits"]["interactive"]
       }
-    
+
+    # guarda en la base de datos
     return context
