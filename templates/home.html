@@ -5,39 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEO</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
 </head>
 <body>
-        <h1> Comparacion SEO de sitios</h1>
-        <p>La tarda 10 seg aproximadamente</p>
+    <div class="container">
 
-<form method="POST">
-    {% csrf_token %}
-
-    <div>
-        <input type="text" name="url1" value="{{ date1.my_url }}" />
-        <span> {{ date1.my_url }}</span>
+        <div class="text">
+            <h1> Comparacion SEO de sitios web</h1>
+            <p>El analisis puede tardar entre 15 a 30 seg :)</p>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
         
-        <p>Speed Index: {{ date1.speed_index.displayValue }}</p>
-        <p>Time to Interactive: {{ date1.interactive.displayValue }}</p>
-        <p>2</p>
+            <div>
+                <label for=""> Sitio 1</label>
+                <input type="text" name="url1" value="{{ date1.my_url }}" />
+                <label for=""> Sitio 2</label>
+                <input type="text" name="url2" value="{{ date2.my_url }}" />
+        
+            </div>
+        
+            <button type="submit" class="">Comparar</button>
+        
+        </form>
+        
+        <table id="table">
+            <tr>
+                <th>Sitio </th>
+                <th>Speed Index</th>
+                <th>Time to Interactive</th>
+            </tr>
+            <tr>
+                <td> {{ date1.my_url }} </td>
+                <td> {{ date1.speed_index.displayValue }} </td>
+                <td> {{ date1.interactive.displayValue }} </td>
+            </tr>
+            <tr>
+                <td>{{ date2.my_url }}</td>
+                <td>{{ date2.speed_index.displayValue }}</td>
+                <td>{{ date2.interactive.displayValue }}</td>
+            </tr>
+        
+        </table>
     </div>
-
-
-    <div>
-        <input type="text" name="url2" value="{{ date2.my_url }}" />
-        <span> {{ date2.my_url }}</span>
-        
-        <p>Speed Index: {{ date2.speed_index.displayValue }}</p>
-        <p>Time to Interactive: {{ date2.interactive.displayValue }}</p>
-        <p>2</p>
-    
-    </div>
-
-    <button type="submit" class="">mostrar!</button>
-
-</form>
-
-        
 
 
     </body>
