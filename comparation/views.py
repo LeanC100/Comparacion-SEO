@@ -1,12 +1,13 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render
 import json
 import urllib
 import requests
 from .models import Site
-
+from django.views import View
 # Create your views here.
 
-def home(request):
+def Home(request):
 
     if request.method == "POST":
       if request.POST.get('url1'):
@@ -24,7 +25,7 @@ def home(request):
         my_url2 = request.POST.get("url2")
         date2 = date_site(my_url2)
         new_site = Site(
-            url=my_url1,
+            url=my_url2,
             speed_index=date2["speed_index"]["displayValue"],
             time_to_interactive=date2["interactive"]["displayValue"]
         )
@@ -68,3 +69,9 @@ def date_site(value):
 
     # guarda en la base de datos
     return context
+
+def HistoryView(request):
+
+    sites = Site.objects.all()
+    print(sites)
+    return render(request, 'history.html', {'sites':sites})

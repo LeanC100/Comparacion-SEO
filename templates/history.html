@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block container %}
+
+
+<div class="text">
+    <h1> historial</h1>
+
+</div>
+<table id="table">
+    <tr>
+        <th>Sitio </th>
+        <th>Speed Index</th>
+        <th>Time to Interactive</th>
+    </tr>
+
+    {% for site in sites %}
+    <tr>
+        <td> {{site.url}} </td>
+        <td> {{site.speed_index}} </td>
+        <td> {{site.time_to_interactive}} </td>
+    </tr>
+    {% endfor%}
+</table>
+
+    <div style="text-align:center">
+        <a href="{% url 'comparation:home'%}"><button>comparar</button></a>
+    </div>
+{% endblock %}

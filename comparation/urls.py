@@ -6,8 +6,12 @@ urlpatterns = [
 
     path(
         route='',
-        view=views.home,
+        view=views.Home,
         name='home'
     ),
-
+    path(
+        route='history/',
+        view=views.HistoryView,
+        name='history'
+    ),
 ]

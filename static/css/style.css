@@ -25,6 +25,9 @@ h1{
     color: #04AA6D;
 }
 
+p{
+    font-size: 14px;
+}
 input{
     padding: 7px;
 }
